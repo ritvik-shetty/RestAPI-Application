@@ -1,14 +1,8 @@
 from flask import Flask, request, jsonify
 import sqlite3
+import logging
 
 app = Flask(__name__)
-
-def delete_emp(emp_id):
-    connection = sqlite3.connect('empdatabase.db')
-    cursor = connection.cursor()
-    cursor.execute('DELETE FROM emp WHERE id = ?', (emp_id,))
-    connection.commit()
-    connection.close()
 
 
 @app.route('/employee', methods=['GET','POST'])
@@ -83,8 +77,20 @@ def postdata(emp_id):
 
 @app.route('/del_employee/<int:emp_id>', methods=['DELETE'])
 def delete_emp_route(emp_id):
-    delete_emp(emp_id)
-    return jsonify({'message': 'Employee deleted successfully'})
+    connection = sqlite3.connect('empdatabase.db')
+    cursor = connection.cursor()
+    cursor.execute('SELECT * FROM emp WHERE id = ?', (emp_id,))
+    data = cursor.fetchone()
+
+    if data:
+        cursor.execute('DELETE FROM emp WHERE id = ?', (emp_id,))
+        connection.commit()
+        connection.close()
+        return jsonify({'message': 'Employee deleted successfully'})
+    else:
+        connection.close()
+        return jsonify({'message': 'Improper ID'}), 404
+    
 
 
 @app.route('/employee/<int:emp_id>',methods=['GET'])
@@ -94,8 +100,13 @@ def get_spec_emp(emp_id):
     cursor.execute('SELECT * FROM emp WHERE id = ?', (emp_id,))
     data = cursor.fetchall()
     conn.close()
- 
+    
+    
     result = [{'id': row[0], 'name': row[1], 'address':row[2], 'city':row[3], 'salary':row[4] } for row in data]
+
+    if not result:
+        return jsonify({'error': 'Employee not found'}), 404
+    
     return jsonify(result)
 
 if __name__ == '__main__':
