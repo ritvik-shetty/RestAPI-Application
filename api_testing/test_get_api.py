@@ -17,7 +17,7 @@ class TestApi(unittest.TestCase):
         response=requests.get(self.URL)
         self.assertEqual(response.status_code,200)
         
-        self.assertEqual(len(response.json()),5)
+        self.assertEqual(len(response.json()),11)
         print("Positive Test 1 completed - GET Request")
         print("The response code is 200 OK")
         print("--------------------------------------")

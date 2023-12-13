@@ -63,13 +63,32 @@ class TestApi(unittest.TestCase):
         print("The response code is 400 error")
         print("Since fields are missing")
 
+    # Negative test case 2: Missing values 
+    def test_data_missing(self):
+        data_to_post = {"name": "Karthik","city": "udupi", "address": "kundapura-street", "salary": ""}
+        response = requests.post(self.URL, json=data_to_post)
+        self.assertEqual(response.status_code,400)
+        print("Negative Test 2 completed - POST Request")
+        print("The response code is 400 error")
+        print("Since data in field missing")
 
- 
+    # Negative test case 3: Incorrect attribute name
+    def test_attr_name_error(self):
+        data_to_post = {"name": "Karthik","city": "udupi", "address": "kundapura-street", "sal": "99845"}
+        response = requests.post(self.URL, json=data_to_post)
+        self.assertEqual(response.status_code,400)
+        print("Negative Test 3 completed - POST Request")
+        print("The response code is 400 error")
+        print("Since data in field missing")
+
+    
+
 if __name__ == "__main__":
     tester = TestApi()
     # tester.test_create_data_successful()
     # tester.test_create_data_with_optional_fields()
     # tester.test_create_data_with_special_characters()
-    tester.test_create_duplicate_data()
+    # tester.test_create_duplicate_data()
     # tester.test_field_missing()
-    tester.test_create_duplicate_data()
+    # tester.test_data_missing()
+    tester.test_attr_name_error()
