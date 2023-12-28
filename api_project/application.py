@@ -1,15 +1,29 @@
 from flask import Flask, request, jsonify
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from flask_swagger_ui import get_swaggerui_blueprint
 import sqlite3
 import logging
 
 logging.basicConfig(level=logging.DEBUG, filename="logs.log",filemode='a' , format='%(asctime)s,%(name)s:%(levelname)s:%(message)s')
-# logger=logging.getLogger(__name__)
+
 
 
 app = Flask(__name__)
 app.config['JWT_SECRET_KEY'] = 'your-secret-key'
 jwt = JWTManager(app)
+
+
+SWAGGER_URL="/swagger"
+API_URL="/static/swagger.json"
+
+swagger_ui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': 'Employee API'
+    }
+)
+app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
 
 
 def get_user(username):
@@ -19,15 +33,6 @@ def get_user(username):
     user = cursor.fetchone()
     conn.close()
     return user
-
-# def get_emp_name(name):
-#     conn = sqlite3.connect('empdatabase.db')
-#     cursor = conn.cursor()
-#     cursor.execute('SELECT * FROM emp WHERE name = ?', (name,))
-#     employee = cursor.fetchone()
-#     conn.close()
-#     return employee
-
 
 # Route for user registration
 @app.route('/register', methods=['POST'])
@@ -68,7 +73,7 @@ def login():
         return jsonify({'message': 'Invalid username or password'}), 401
 
 
-@app.route('/employee', methods=['GET'])
+@app.route('/getemployee', methods=['GET'])
 def get():
     try:
         conn = sqlite3.connect('empdatabase.db')
@@ -82,7 +87,7 @@ def get():
     except Exception as obj:
         logging.error("Exception Information",exc_info=True)
 
-@app.route('/employee', methods=['POST'])
+@app.route('/postemployee', methods=['POST'])
 @jwt_required()
 def posts():
     app.logger.info("User requested a POST request")
@@ -105,7 +110,7 @@ def posts():
     except Exception as obj:
         logging.error("Exception Information",exc_info=True)
 
-@app.route('/employee/<int:emp_id>',methods=['PUT'])
+@app.route('/putemployee/<int:emp_id>',methods=['PUT'])
 @jwt_required()
 def putdata(emp_id):
     app.logger.info(f"User requested a PUT request for employee-id:{emp_id} ")
@@ -151,7 +156,7 @@ def putdata(emp_id):
             logging.error("Exception Information",exc_info=True)
 
 
-@app.route('/del_employee/<int:emp_id>', methods=['DELETE'])
+@app.route('/employee/<int:emp_id>', methods=['DELETE'])
 @jwt_required()
 def delete_emp_route(emp_id):
     app.logger.info(f"User requested a DELETE request for employee-id:{emp_id}")
