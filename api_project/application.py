@@ -13,19 +13,6 @@ app.config['JWT_SECRET_KEY'] = 'your-secret-key'
 jwt = JWTManager(app)
 
 
-SWAGGER_URL="/swagger"
-API_URL="/static/swagger.json"
-
-swagger_ui_blueprint = get_swaggerui_blueprint(
-    SWAGGER_URL,
-    API_URL,
-    config={
-        'app_name': 'Employee API'
-    }
-)
-app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
-
-
 def get_user(username):
     conn = sqlite3.connect('empdatabase.db')
     cursor = conn.cursor()
