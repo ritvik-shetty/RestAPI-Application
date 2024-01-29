@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
-from flask_swagger_ui import get_swaggerui_blueprint
 import sqlite3
 import logging
 
@@ -59,8 +58,9 @@ def login():
     else:
         return jsonify({'message': 'Invalid username or password'}), 401
 
-
-@app.route('/getemployee', methods=['GET'])
+# Route for listing all employees of the Database
+@app.route('/list_employees', methods=['GET'])
+@jwt_required()
 def get():
     try:
         conn = sqlite3.connect('empdatabase.db')
@@ -74,7 +74,8 @@ def get():
     except Exception as obj:
         logging.error("Exception Information",exc_info=True)
 
-@app.route('/postemployee', methods=['POST'])
+# Route for adding employees of the Database
+@app.route('/create_employee', methods=['POST'])
 @jwt_required()
 def posts():
     app.logger.info("User requested a POST request")
@@ -97,14 +98,12 @@ def posts():
     except Exception as obj:
         logging.error("Exception Information",exc_info=True)
 
-@app.route('/putemployee/<int:emp_id>',methods=['PUT'])
+# Route for updating employees of the Database
+@app.route('/update_employee/<int:emp_id>',methods=['PUT'])
 @jwt_required()
 def putdata(emp_id):
     app.logger.info(f"User requested a PUT request for employee-id:{emp_id} ")
     current_user = get_jwt_identity()
-    # employee=get_emp_name(emp_id)
-    
-    # if (current_user==employee):
 
     data = request.get_json()
 
@@ -142,8 +141,8 @@ def putdata(emp_id):
     except Exception as obj:
             logging.error("Exception Information",exc_info=True)
 
-
-@app.route('/employee/<int:emp_id>', methods=['DELETE'])
+# Route for deleting employees from the Database
+@app.route('/remove_employee/<int:emp_id>', methods=['DELETE'])
 @jwt_required()
 def delete_emp_route(emp_id):
     app.logger.info(f"User requested a DELETE request for employee-id:{emp_id}")
@@ -167,6 +166,7 @@ def delete_emp_route(emp_id):
     except Exception as obj:
             logging.error("Exception Information",exc_info=True)
 
+# Route for listing specific employees of the Database
 @app.route('/employee/<int:emp_id>',methods=['GET'])
 @jwt_required()
 def get_spec_emp(emp_id):
