@@ -3,7 +3,7 @@ import requests
 
 class ApiTests(unittest.TestCase):
     BASE_URL = "http://127.0.0.1:5000/"
-    VALID_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNjUwOTU3OSwianRpIjoiZDM1NDcyYjEtMTdiNy00Nzc5LWEyMjAtY2E4ODY1ODZhYmNhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Ik1pY2hhZWwiLCJuYmYiOjE3MDY1MDk1NzksImNzcmYiOiI0MjgyOTNmZi00MGE2LTQ5ZDYtYTNlOC1hMDg5ODljNmU0ZjUiLCJleHAiOjE3MDY1MTA0Nzl9.gpATfBKBYRjreH8wwOOMQcXOgteUrg9n1T-4O9XBKnE"
+    VALID_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzk3OTEwNSwianRpIjoiYTRmNzg4NjktNjUxYy00NDI2LWJiYzAtNTA1MGViMzExM2M0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Ik1pY2hhZWwiLCJuYmYiOjE3MDc5NzkxMDUsImNzcmYiOiJmMWUyMmNkNy04MmQ2LTRkOTctYWEzMi1kNjFhNGIwMjczYTAiLCJleHAiOjE3MDc5ODAwMDV9.BfyWHhsHwABjsyN0EkLhZNEv8IO1PphMQPhHviIu4L4"
     INVALID_TOKEN = "invalid_token"
 
     
@@ -96,9 +96,9 @@ class ApiTests(unittest.TestCase):
 
 if __name__ == '__main__':
     tester=ApiTests()
-    # tester.test_create_data_successful()
-    # tester.test_create_data_with_special_characters()
-    # tester.test_create_duplicate_data()
+    tester.test_create_data_successful()
+    tester.test_create_data_with_special_characters()
+    tester.test_create_duplicate_data()
 
     tester.test_post_invalid_token()
     tester.test_field_missing()

@@ -3,7 +3,7 @@ import requests
 header={
     'Accept':'*/*',
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNjUwNzc4OCwianRpIjoiMzFhNWQ1MGQtNTdjNy00ZDE3LWI2ZjEtZWYxMjY3NGY5NDNjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Ik1pY2hhZWwiLCJuYmYiOjE3MDY1MDc3ODgsImNzcmYiOiJkNWE4OGY3Yi0yYzE2LTRhMjgtODRlMi01YTBjNGYzZmExZGIiLCJleHAiOjE3MDY1MDg2ODh9.OMxeZ7au_NugPgTpBDRO9PEXow51Hh6MK2Ov0lQUuEc'
+    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzk3OTEwNSwianRpIjoiYTRmNzg4NjktNjUxYy00NDI2LWJiYzAtNTA1MGViMzExM2M0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Ik1pY2hhZWwiLCJuYmYiOjE3MDc5NzkxMDUsImNzcmYiOiJmMWUyMmNkNy04MmQ2LTRkOTctYWEzMi1kNjFhNGIwMjczYTAiLCJleHAiOjE3MDc5ODAwMDV9.BfyWHhsHwABjsyN0EkLhZNEv8IO1PphMQPhHviIu4L4'
 
 }
 
@@ -19,7 +19,7 @@ response= requests.post('http://127.0.0.1:5000/create_employee',headers=header,j
 print(response.json())
 
 
-assert response.status_code == 201 , f"expected response to have status code 200 but got {response.status_code}"
+assert response.status_code == 201 , f"expected response to have status code 201 but got {response.status_code}"
 
 print("The program has run successfully and the Status Code is",response.status_code)
 

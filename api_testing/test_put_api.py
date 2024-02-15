@@ -3,7 +3,7 @@ import requests
 
 class ApiTests(unittest.TestCase):
     URL="http://127.0.0.1:5000/update_employee"
-    VALID_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNjUwOTU3OSwianRpIjoiZDM1NDcyYjEtMTdiNy00Nzc5LWEyMjAtY2E4ODY1ODZhYmNhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Ik1pY2hhZWwiLCJuYmYiOjE3MDY1MDk1NzksImNzcmYiOiI0MjgyOTNmZi00MGE2LTQ5ZDYtYTNlOC1hMDg5ODljNmU0ZjUiLCJleHAiOjE3MDY1MTA0Nzl9.gpATfBKBYRjreH8wwOOMQcXOgteUrg9n1T-4O9XBKnE"
+    VALID_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzk3OTEwNSwianRpIjoiYTRmNzg4NjktNjUxYy00NDI2LWJiYzAtNTA1MGViMzExM2M0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Ik1pY2hhZWwiLCJuYmYiOjE3MDc5NzkxMDUsImNzcmYiOiJmMWUyMmNkNy04MmQ2LTRkOTctYWEzMi1kNjFhNGIwMjczYTAiLCJleHAiOjE3MDc5ODAwMDV9.BfyWHhsHwABjsyN0EkLhZNEv8IO1PphMQPhHviIu4L4"
     INVALID_TOKEN = "invalid_token"
 
     data={        
@@ -32,7 +32,7 @@ class ApiTests(unittest.TestCase):
         headers = {
             "Authorization": f"Bearer {self.VALID_TOKEN}"
         }
-        response = requests.put(self.URL+"/6", json=self.data1,headers=headers)
+        response = requests.put(self.URL+"/10", json=self.data1,headers=headers)
         self.assertEqual(response.status_code, 200)
         print("Positive Test 1 completed - PUT Request")
         print("The response code is 200 OK")
@@ -44,7 +44,7 @@ class ApiTests(unittest.TestCase):
         headers = {
             "Authorization": f"Bearer {self.INVALID_TOKEN}"
         }
-        response = requests.put(self.URL+"/9", json=self.data1,headers=headers)
+        response = requests.put(self.URL+"/10", json=self.data1,headers=headers)
         self.assertEqual(response.status_code, 422)
         print("Positive Test 1 completed - PUT Request")
         print("The response code is 422")

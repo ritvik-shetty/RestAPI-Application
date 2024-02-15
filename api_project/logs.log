@@ -161,3 +161,13 @@
 2024-01-29 12:07:55,312,application:INFO:User requested a DELETE request for employee-id:10
 2024-01-29 12:07:55,312,application:INFO:Data is not present in the database
 2024-01-29 12:07:55,312,werkzeug:INFO:127.0.0.1 - - [29/Jan/2024 12:07:55] "[33mDELETE /remove_employee/10 HTTP/1.1[0m" 404 -
+2024-01-29 12:08:28,252,application:INFO:User requested a DELETE request for employee-id:6
+2024-01-29 12:08:28,379,application:INFO:Data deleted sucessfully from the database
+2024-01-29 12:08:28,379,werkzeug:INFO:127.0.0.1 - - [29/Jan/2024 12:08:28] "DELETE /remove_employee/6 HTTP/1.1" 200 -
+2024-01-29 12:08:28,384,werkzeug:INFO:127.0.0.1 - - [29/Jan/2024 12:08:28] "[31m[1mDELETE /remove_employee/10 HTTP/1.1[0m" 422 -
+2024-01-29 12:08:28,389,application:INFO:User requested a DELETE request for employee-id:99999
+2024-01-29 12:08:28,389,application:INFO:Data is not present in the database
+2024-01-29 12:08:28,389,werkzeug:INFO:127.0.0.1 - - [29/Jan/2024 12:08:28] "[33mDELETE /remove_employee/99999 HTTP/1.1[0m" 404 -
+2024-01-29 12:08:28,395,werkzeug:INFO:127.0.0.1 - - [29/Jan/2024 12:08:28] "[33mPUT /remove_employee HTTP/1.1[0m" 404 -
+2024-01-29 12:08:47,685,application:INFO:Data fetched sucessfully from the database
+2024-01-29 12:08:47,685,werkzeug:INFO:127.0.0.1 - - [29/Jan/2024 12:08:47] "GET /list_employees HTTP/1.1" 200 -
